@@ -3,10 +3,19 @@ function setUpKey() {
 		$('#key-info').text(e.code);
 		if(e.code.includes("Key")) {
 			var ch = e.code.replace('Key', '');
-			putChar(ch);
+			putCharMem(ch);
 		}
 		if(e.code == 'Space') {
-			putChar(' ');
+			putCharMem(' ');
+		}
+
+		if(e.code == 'Enter') {
+			refresh();
+		}
+
+		if(e.code == 'Backspace') {
+			mem.pop();
+			refresh();
 		}
 		// if(e.code == 'ArrowRight') {
 		// 	posY = posY == (columns - 1) ? posY: posY + 1;

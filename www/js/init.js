@@ -11,17 +11,20 @@ var canvasWidth = canvas.width;
 var canvasHeight = canvas.height;
 var scale = 1;
 var charWidth = scale * 8;
+var charHeight = scale * 8;
 // ---- Term Unit ----
 var columns = 40;
 var rows = 25;
 var posX = 1;
-var posY = 2;
+var posY = 1;
+
+var mem = [];
 
 function clearScreen() {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 }
 
-function drawChar(c, x, y) {
+function _drawCharXY(c, x, y) {
 	var id = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
 	var pixels = id.data;
 	for(var i=0; i<8; i++) {
@@ -40,31 +43,66 @@ function drawChar(c, x, y) {
 	ctx.putImageData(id, 0, 0);
 }
 
+function drawChar(c, x, y) {
+	_drawCharXY(c, x * charWidth, y * charHeight);
+}
+
 function putChar(ch) {
-	var c = ch.charCodeAt(0);
+	var c = typeof(ch) === "number"? ch : ch.charCodeAt(0);
 	
-	if(posX == columns) {
-		posY++;
-		posX = 0;
+	if(posX == columns-1) {
+		posY+=1;
+		posX = 1;
 	}
 
 	if(posY == rows) {
 		return;
 	}
-	drawChar(c, posX * charWidth, posY * charWidth);
+	_drawCharXY(c, posX * charWidth, posY * (charHeight + 3));
 	posX++;
+}
+
+function putCharMem(ch) {
+	var ch = typeof(ch) === "number"? ch : ch.charCodeAt(0);
+	putChar(ch);
+	mem.push(ch);
+}
+
+function tprint(str) {
+	for(var i=0; i<str.length; i++) {
+		putCharMem(str[i]);
+	}
+}
+
+function refresh() {
+	clearScreen();
+	posX = 1;
+	posY = 1;
+	l = mem.length;
+	for(var i = 0; i < l; i++) {
+		putChar(mem[i]);
+	}
+	console.log('Refresh');
 }
 
 clearScreen();
 
-drawChar(1, 0, 0);
-for(var i=1; i<24; i++) {
-	if(i==20) continue;
-	drawChar(3, 0, i * charWidth);
-}
-drawChar(4, 0, 20 * charWidth);
-drawChar(2, 0, 24 * charWidth);
-drawChar(5, 5 * charWidth, 5 * charWidth);
+// drawChar(1, columns-1, 0);
+// for(var i=1; i<24; i++) {
+// 	if(i==20) continue;
+// 	drawChar(3, columns-1, i);
+// }
+// drawChar(4, columns-1, 20);
+// drawChar(2, columns-1, 24);
+
+// drawChar(5, 5, 5);
+
+var text = "Hello World";
+
+tprint(text);
+// putChar(6);
+
+setUpKey();
 
 // drawChar(1, 8, 0);
 // drawChar(1, 16, 0);
@@ -88,7 +126,7 @@ drawChar(5, 5 * charWidth, 5 * charWidth);
 
 // putChar('X');
 
-setUpKey();
+
 
 // $(document).ready(function() {
 // 	window.columns = 40;
