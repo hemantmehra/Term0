@@ -1,0 +1,23 @@
+#screen {
+	width: 600px;
+	display: grid;
+    grid-template-columns: repeat(40, 1fr);
+	background-color: black;
+	color: white;
+	font-family: monospace;
+}
+
+.screen-cell {
+	aspect-ratio: 1;
+	grid-template-columns: repeat(8, 1fr);
+}
+
+.cursor {
+	color: black;
+	background-color: white;
+	width: 100%;
+}
+
+canvas {
+	border: 1px solid grey;
+}
