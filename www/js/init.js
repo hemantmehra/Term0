@@ -64,6 +64,8 @@ for(var i=1; i<24; i++) {
 }
 drawChar(4, 0, 20 * charWidth);
 drawChar(2, 0, 24 * charWidth);
+drawChar(5, 5 * charWidth, 5 * charWidth);
+
 // drawChar(1, 8, 0);
 // drawChar(1, 16, 0);
 // drawChar(1, 24, 0);
