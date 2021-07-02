@@ -13,8 +13,8 @@ var scale = 1;
 var charWidth = scale * 8;
 var charHeight = scale * 8;
 // ---- Term Unit ----
-var columns = 40;
-var rows = 25;
+var columns = 64;
+var rows = 43;
 var posX = 1;
 var posY = 1;
 
