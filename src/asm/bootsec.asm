@@ -11,7 +11,7 @@ mov bx, 0x0      ; ES:BX = 0x1000:0
 mov dh, 0x0 ; no of sector
 mov dl, 0x0 ; drive number
 mov ch, 0x0 ; cylinder 0
-mov cl, 0x02 ; starting sector
+mov cl, 0x05 ; starting sector
 
 read_disk1:
     mov ah, 0x02 ; BIOS int 13/0x02 read disk sector
@@ -30,11 +30,11 @@ mov bx, 0x0      ; ES:BX = 0x1000:0
 mov dh, 0x0 ; no of sector
 mov dl, 0x0 ; drive number
 mov ch, 0x0 ; cylinder 0
-mov cl, 0x03 ; starting sector
+mov cl, 0x02 ; starting sector
 
 read_disk2:
     mov ah, 0x02 ; BIOS int 13/0x02 read disk sector
-    mov al, 0x02 ; # of sector to read
+    mov al, 0x03 ; # of sector to read
     int 0x13
 
     jc read_disk2 ; retry

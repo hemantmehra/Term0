@@ -16,7 +16,7 @@ hex_loop:
 	add al, 0x30
 	cmp al, 0x39
 	jle move_intoBX
-	mov al, 0x07
+	mov al, 0x7
 
 move_intoBX:
 	mov bx, hexString + 5
